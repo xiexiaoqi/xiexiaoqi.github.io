@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[小旋风]]></title>
+  <link href="http://xiexiaoqi.github.io/atom.xml" rel="self"/>
+  <link href="http://xiexiaoqi.github.io/"/>
+  <updated>2013-12-27T15:26:14+08:00</updated>
+  <id>http://xiexiaoqi.github.io/</id>
+  <author>
+    <name><![CDATA[谢小琪]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[JS 数组迭代方法]]></title>
+    <link href="http://xiexiaoqi.github.io/blog/2013/10/22/jsshu-zu-die-dai-qi/"/>
+    <updated>2013-10-22T02:18:00+08:00</updated>
+    <id>http://xiexiaoqi.github.io/blog/2013/10/22/jsshu-zu-die-dai-qi</id>
+    <content type="html"><![CDATA[<p>ECMAScripts 5 为数组提供了5个迭代方法，分别为：</p>
+
+<blockquote><p><ul><br/>    <li>every()：对数组中的每一项运行一个函数，如果该函数对每一项都返回true,则返回true。</li><br/>    <li>filter()：对数组中的每一项运行一个函数，返回该函数会返回true的项目组成的数组。</li><br/>    <li>map()：对数组中的每一项运行一个函数，返回每次函数调用的结果 组成的数组。</li><br/>    <li>some()：对数组中的每一项运行一个函数，如果该函数对任一一项返回true,则返回true。。</li><br/>    <li>forEach()：对数组中的每一项运行一个函数，无返回值。</li><br/></ul></p></blockquote>
+
+
+<!--more-->
+
+
+<p>这里的每个方法都接受两个参数：要在每一项上运行的函数；（可选项）运行该函数的作用域对象——影响 this 的值。</p>
+
+<p>传入这些方法中的函数会接受三个参数：数组的项；数组项的索引；数组对象本身。</p>
+
+<p>从上面的方法可以看出根据使用方法的不同，所返回的结果也是不同。</p>
+
+<p>请看以下例子：</p>
+
+<!--every()-->
+
+
+
+
+<figure class='code'><figcaption><span>every() </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">number</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="p">];</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">everyResult</span> <span class="o">=</span> <span class="nx">number</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">array</span> <span class="p">){</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nx">item</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//一假全假，有点类似于&amp;&amp;运算。</span>
+</span><span class='line'><span class="nx">alert</span><span class="p">(</span> <span class="nx">everyResult</span> <span class="p">);</span>  <span class="c1">// false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!--filter()-->
+
+
+
+
+<figure class='code'><figcaption><span>filter() </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">number</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="p">];</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">filterResult</span> <span class="o">=</span> <span class="nx">number</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">array</span> <span class="p">){</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nx">item</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//返回符合条件的结果</span>
+</span><span class='line'><span class="nx">alert</span><span class="p">(</span> <span class="nx">filterResult</span> <span class="p">);</span>  <span class="c1">// 3,4,5,4,3</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!--map()-->
+
+
+
+
+<figure class='code'><figcaption><span>map() </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">number</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="p">];</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">mapResult</span> <span class="o">=</span> <span class="nx">number</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">array</span> <span class="p">){</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nx">item</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//返回执行结果</span>
+</span><span class='line'><span class="nx">alert</span><span class="p">(</span> <span class="nx">mapResult</span> <span class="p">);</span>  <span class="c1">// 2,4,6,8,10,8,6,4,2</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!--some()-->
+
+
+
+
+<figure class='code'><figcaption><span>some() </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">number</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="p">];</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">someResult</span> <span class="o">=</span> <span class="nx">number</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">array</span> <span class="p">){</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nx">item</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//如果有一项符合条件，则返回true</span>
+</span><span class='line'><span class="nx">alert</span><span class="p">(</span> <span class="nx">someResult</span> <span class="p">);</span>  <span class="c1">// true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!--forEach()-->
+
+
+
+
+<figure class='code'><figcaption><span>forEach() </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">number</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="p">];</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">forEachResult</span> <span class="o">=</span> <span class="nx">number</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">array</span> <span class="p">){</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nx">item</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//无返回值，相当于for循环</span>
+</span><span class='line'><span class="nx">alert</span><span class="p">(</span> <span class="nx">forEachResult</span> <span class="p">);</span>  <span class="c1">// undefined</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>【完】</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[PHP类中成员属性赋值]]></title>
+    <link href="http://xiexiaoqi.github.io/blog/2013/10/22/phplei-zhong-cheng-yuan-shu-xing-fu-zhi/"/>
+    <updated>2013-10-22T01:51:00+08:00</updated>
+    <id>http://xiexiaoqi.github.io/blog/2013/10/22/phplei-zhong-cheng-yuan-shu-xing-fu-zhi</id>
+    <content type="html"><![CDATA[<p>在PHP类中给成员属性赋值只能赋常数值，如果你尝试给成员属性赋一个表达式如：time();那么将会报错。
+根据官方解释为：&#8221;属性中的变量可以初始化，但是初始化的值必须是常数，这里的常数是指php脚本在编译阶段时就为常数，而不是在编译阶段之后在运行阶段运算出的常数。&#8221;</p>
+
+<p>这里time()就是个表达式, 变量同样也是个表达式, 所以会报错。</p>
+
+<p>【完】</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[url通过GET[]传数组类型参数]]></title>
+    <link href="http://xiexiaoqi.github.io/blog/2013/10/22/urltong-guo-get-chuan-shu-zu-lei-xing-can-shu/"/>
+    <updated>2013-10-22T01:49:00+08:00</updated>
+    <id>http://xiexiaoqi.github.io/blog/2013/10/22/urltong-guo-get-chuan-shu-zu-lei-xing-can-shu</id>
+    <content type="html"><![CDATA[<p>由于通过get提交的参数是无法提交数组的，所以只能将数组格式化为字符串再提交。而之后会遇一个问题，就是在url中，如果所提交的参数含有空格，引号之类的特殊符号就会被默认转义，那么在后台通过$_GET[]直接获取，直接在浏览器打印出来，看到的结果是你想要的，如果查看源代码那么你会发现类似这样的字符串#039;artist#039;“#039;”是&#8221;&lsquo;&ldquo;号的转义。
+所以这样的值是无效的。</p>
+
+<p>解决方法：
+在将字符串传入url之前通过urlencode()方法将字符串编码，然后在取得值时，通过urldecode解码。这样就得到了您想要的了！</p>
+
+<p>【完】</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[PHP SPL库列表]]></title>
+    <link href="http://xiexiaoqi.github.io/blog/2013/10/22/php-splku-lie-biao/"/>
+    <updated>2013-10-22T00:51:00+08:00</updated>
+    <id>http://xiexiaoqi.github.io/blog/2013/10/22/php-splku-lie-biao</id>
+    <content type="html"><![CDATA[<p>经常在一些PHP框架中看到有关于SPL库的使用，所以自己就在网搜了一些资料了解了一下。
+只是给自己整理的，方便以后查阅！</p>
+
+<!--more-->
+
+
+<p>Iterator接口，可以把对象当做数组一样进行循环操作</p>
+
+<p>ArrayAccess界面，可以使对象像数组一下进么操作，如：增加，删除,但不能进行遍历</p>
+
+<p>IteratorAggregate接口， 针对上面两种进行的中和，</p>
+
+<p>RecursiveIterator 接口，遍历多层数据</p>
+
+<p>Countable 接口，返回集的数量</p>
+
+<p>DirectoryIterator 类，查看目录中的所以文件和子目录</p>
+
+<p>ArrayObject类，将Array转化为object//没有遍历功能</p>
+
+<p>ArrayIterator类，为ArrayObject提供遍历功能</p>
+
+<p>FilterIterator类，可以对元素进行过滤，在accept()方法中设置过滤条件</p>
+
+<p>SimpleXMLIterator类，遍历xml文件</p>
+
+<p>CachingIterator类，这个类有hasNext()方法，用来判断是否还有下一个元素</p>
+
+<p>LimitIterator类，限定返回结果集的数量和位置</p>
+
+<p>SplFileObject类，对文本文件进行遍历</p>
+
+<p>【完】</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[PHP SPL库尝试:DirectoryIterator类]]></title>
+    <link href="http://xiexiaoqi.github.io/blog/2013/10/22/php-splku-chang-shi-directoryiteratorlei/"/>
+    <updated>2013-10-22T00:10:00+08:00</updated>
+    <id>http://xiexiaoqi.github.io/blog/2013/10/22/php-splku-chang-shi-directoryiteratorlei</id>
+    <content type="html"><![CDATA[<p>以往如果我们要遍历一个目录下的文件，包括子目录，一般是使用PHP Directory 函数，如下面这个方法，但是如果你还想获得目录下文件的信息，就还得费一些手段了。</p>
+
+<!--more-->
+
+
+
+
+<figure class='code'><figcaption><span>遍历目录一般做法 </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'>    <span class="k">function</span> <span class="nf">list_dir</span><span class="p">(</span><span class="nv">$path</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$dir_handle</span> <span class="o">=</span> <span class="nb">opendir</span><span class="p">(</span><span class="nv">$path</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$ret_arr</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">while</span><span class="p">(</span><span class="nv">$dir_read</span> <span class="o">=</span> <span class="nb">readdir</span><span class="p">(</span><span class="nv">$dir_handle</span><span class="p">))</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="k">if</span><span class="p">(</span><span class="nv">$dir_read</span> <span class="o">==</span> <span class="s2">&quot;.&quot;</span> <span class="o">||</span> <span class="nv">$dir_read</span> <span class="o">==</span> <span class="s2">&quot;..&quot;</span><span class="p">)</span>
+</span><span class='line'>                <span class="k">continue</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">if</span><span class="p">(</span><span class="nb">is_dir</span><span class="p">(</span><span class="nv">$dir_read</span><span class="p">))</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="nv">$ret_arr</span><span class="p">[</span><span class="nv">$path</span><span class="p">][</span><span class="nv">$dir_read</span><span class="p">]</span> <span class="o">=</span> <span class="nx">list_dir</span><span class="p">(</span><span class="nv">$path</span><span class="o">.</span><span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="nv">$dir_read</span><span class="p">);</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>            <span class="k">else</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="nv">$ret_arr</span><span class="p">[</span><span class="nv">$path</span><span class="p">][]</span> <span class="o">=</span> <span class="nv">$dir_read</span><span class="p">;</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$ret_arr</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="cp">?&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用SPL类库中的DirectoryIterator类，它可以以一种操作类属性的方式来取得关于文件的一些属性，下面也看一上使用了DirectoryIterator写的遍历目录的方法。</p>
+
+<figure class='code'><figcaption><span>使用DirectoryIterator类做法 </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'>    <span class="k">function</span> <span class="nf">list_dir</span><span class="p">(</span><span class="nv">$path</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$ret_array</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">foreach</span><span class="p">(</span> <span class="k">new</span> <span class="nx">DirectoryIterator</span><span class="p">(</span><span class="nv">$path</span><span class="p">)</span> <span class="k">as</span> <span class="nv">$keys</span> <span class="o">=&gt;</span> <span class="nv">$files</span> <span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">if</span><span class="p">(</span> <span class="nv">$files</span><span class="o">-&gt;</span><span class="na">isDot</span><span class="p">()</span> <span class="p">)</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="k">continue</span><span class="p">;</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>            <span class="nv">$fileName</span> <span class="o">=</span> <span class="nv">$files</span><span class="o">-&gt;</span><span class="na">getFilename</span><span class="p">();</span>
+</span><span class='line'>            <span class="k">if</span><span class="p">(</span> <span class="nv">$files</span><span class="o">-&gt;</span><span class="na">getType</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;dir&#39;</span> <span class="p">)</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="nv">$ret_array</span><span class="p">[</span><span class="nv">$fileName</span><span class="p">]</span> <span class="o">=</span> <span class="nx">list_dir</span><span class="p">(</span><span class="nv">$path</span><span class="o">.</span><span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="nv">$fileName</span><span class="p">);</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>            <span class="k">else</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="nv">$ret_array</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$fileName</span><span class="p">;</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$ret_array</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="cp">?&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可用到关于文件检测的方法如：isReadable(); isFile(); isDir(); isDir()&hellip;.具体方法，
+请参考SPL.php文件，或<a href="http://www.php.net/manual/en/directoryiterator.construct.php">http://www.php.net/manual/en/directoryiterator.construct.php</a></p>
+
+<p>【完】</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress博客配置笔记:1]]></title>
+    <link href="http://xiexiaoqi.github.io/blog/2013/10/21/octopressbo-ke-pei-zhi-bi-ji-1/"/>
+    <updated>2013-10-21T17:26:00+08:00</updated>
+    <id>http://xiexiaoqi.github.io/blog/2013/10/21/octopressbo-ke-pei-zhi-bi-ji-1</id>
+    <content type="html"><![CDATA[<p><a href="http://octopress.org/" class="fl_left a_unline">
+<img class="insert_img" src="http://xiexiaoqi.github.io/images/post_img/octopress.jpg" title="Octopress" >
+</a>
+<a href="https://github.com/" class="fl_left a_unline">
+<img class="insert_img" src="http://xiexiaoqi.github.io/images/post_img/github.jpg" title="github" >
+</a></p>
+
+<p class="clear" /></p>
+
+
+<p>安装此博客时，参照了官方的一些说明文档( <a href="http://octopress.org/docs/">octopress</a>、<a href="https://help.github.com/categories/20/articles">github</a> )，外加自己的google。</p>
+
+<!-- more -->
+
+
+<p>
+第一步</p>
+
+<p>安装Octopress 到您的系统。
+我的系统环境为“centos 6.3”。</p>
+
+<p>安装 git</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yum install git</span></code></pre></td></tr></table></div></figure>
+
+
+<p>安装Ruby，Ruby版本必须大于1.9.3，不使用Ruby的话可以使用“rbenv 或 RVM.”，在这里我使用的时Ruby。 Octoperss使用yaml格式文件作为配置文件，所以还需要安装libyaml。 先安装 libyaml</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>wget http://pyyaml.org/download/libyaml/yaml-0.1.4.tar.gz
+</span><span class='line'>tar xzvf yaml-0.1.4.tar.gz
+</span><span class='line'>cd yaml-0.1.4
+</span><span class='line'>./configure --prefix=/usr/local
+</span><span class='line'>make
+</span><span class='line'>make install</span></code></pre></td></tr></table></div></figure>
+
+
+<p>安装Ruby</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#使用ftp下载
+</span><span class='line'>lftp ftp.ruby-lang.org
+</span><span class='line'>lftp ftp.ruby-lang.org:/> cd /pub/ruby
+</span><span class='line'>lftp ftp.ruby-lang.org:/pub/ruby>
+</span><span class='line'>lftp ftp.ruby-lang.org:/pub/ruby> get ruby-1.9.3.pXXX.tar.gz  # 选择合适的版本下载
+</span><span class='line'>lftp ftp.ruby-lang.org:/pub/ruby> exit
+</span><span class='line'>#编辑安装
+</span><span class='line'>tar zxvf ruby-1.9.3.pXXX.tar.gz
+</span><span class='line'>cd ruby-1.9.3.pXXX
+</span><span class='line'>./configure --prefix=/usr/local --enable-shared --disable-install-doc --with-opt-dir=/usr/local/lib
+</span><span class='line'>make
+</span><span class='line'>make install</span></code></pre></td></tr></table></div></figure>
+
+
+<p>安装Octopress</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git clone git://github.com/imathis/octopress.git octopress
+</span><span class='line'>cd octopress
+</span><span class='line'>
+</span><span class='line'># 安装相关依赖
+</span><span class='line'>gem install bundler
+</span><span class='line'>bundle install
+</span><span class='line'>
+</span><span class='line'># 安装默认主题
+</span><span class='line'>rake install
+</span><span class='line'>
+</span><span class='line'>#设置您的github链接(http://username.github.io)，当用在rake deploy时，octopress知道要将源码提交到哪
+</span><span class='line'>rake setup_github_pages</span></code></pre></td></tr></table></div></figure>
+
+
+<p>到这里Otopress就安装好了。</p>
+
+<p>第二步</p>
+
+<p>配置您的github</p>
+
+<p>登录github，github为每个用户提供一个个人主页，为每每个项目提供一个项目主页。这些都是只能是静态HTML文件的。 进去后您会看到类似于“yourname.github.io”这样的一个字样，和您创建的项目列在一起，点击链接进去。 可以参考这个<a href="https://help.github.com/articles/creating-pages-with-the-automatic-generator" target="_blank">页面</a>，从第一步到第六步。 这样直接访问“yourname.github.io”，就可以看到您刚才设置的那套模板了！我们就是利用这一种方式来搭建一个速度可观，无限流量的blog。</p>
+
+<p>生成SSH keys</p>
+
+<p>当您提交代码到您的github时，git是需要权限验证的。所以您需要用您注册时所使用的email来生成一个唯一的SSH keys，并为这设置密码。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh-keygen -t rsa -C "your_email@example.com"
+</span><span class='line'># Creates a new ssh key, using the provided email as a label
+</span><span class='line'># Generating public/private rsa key pair.
+</span><span class='line'># 直接回车，将文件存放在用户目录
+</span><span class='line'># Enter file in which to save the key (/c/Users/you/.ssh/id_rsa): [Press enter]
+</span><span class='line'>ssh-add id_rsa
+</span><span class='line'>
+</span><span class='line'># 输入密码
+</span><span class='line'>Enter passphrase (empty for no passphrase): [Type a passphrase]
+</span><span class='line'># Enter same passphrase again: [Type passphrase again]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>将生成的key复制到您的github账户</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~/.ssh
+</span><span class='line'>vi id_rsa.pub
+</span><span class='line'># 显示类似于这样的字符：ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAu2PxN9ft1wdaFaMcQJbS+MOTKsEJ6nU....</span></code></pre></td></tr></table></div></figure>
+
+
+<p>添加操作”Account settings &ndash;> SSH Keys &ndash;> Add SSH key”，完成添加。</p>
+
+<p>测试连接是否正常</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -T git@github.com
+</span><span class='line'>#输入密码后，当看到显示下面的字符时，说明连接成功
+</span><span class='line'>#Hi yourname! You've successfully authenticated, but GitHub does not provide shell access.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Octopress博客配置笔记:1</p>
+
+<p>【完】</p>
+]]></content>
+  </entry>
+  
+</feed>
