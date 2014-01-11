@@ -4,7 +4,7 @@
   <title><![CDATA[小旋风]]></title>
   <link href="http://xiexiaoqi.github.io/atom.xml" rel="self"/>
   <link href="http://xiexiaoqi.github.io/"/>
-  <updated>2014-01-11T14:05:43+08:00</updated>
+  <updated>2014-01-11T14:21:51+08:00</updated>
   <id>http://xiexiaoqi.github.io/</id>
   <author>
     <name><![CDATA[谢小琪]]></name>
@@ -677,31 +677,32 @@ forEach()：对数组中的每一项运行一个函数，无返回值。
 <!--more-->
 
 
-<p>Iterator接口，可以把对象当做数组一样进行循环操作</p>
+<pre><code>Iterator接口，可以把对象当做数组一样进行循环操作
 
-<p>ArrayAccess界面，可以使对象像数组一下进么操作，如：增加，删除,但不能进行遍历</p>
+ArrayAccess界面，可以使对象像数组一下进么操作，如：增加，删除,但不能进行遍历
 
-<p>IteratorAggregate接口， 针对上面两种进行的中和，</p>
+IteratorAggregate接口， 针对上面两种进行的中和，
 
-<p>RecursiveIterator 接口，遍历多层数据</p>
+RecursiveIterator 接口，遍历多层数据
 
-<p>Countable 接口，返回集的数量</p>
+Countable 接口，返回集的数量
 
-<p>DirectoryIterator 类，查看目录中的所以文件和子目录</p>
+DirectoryIterator 类，查看目录中的所以文件和子目录
 
-<p>ArrayObject类，将Array转化为object//没有遍历功能</p>
+ArrayObject类，将Array转化为object//没有遍历功能
 
-<p>ArrayIterator类，为ArrayObject提供遍历功能</p>
+ArrayIterator类，为ArrayObject提供遍历功能
 
-<p>FilterIterator类，可以对元素进行过滤，在accept()方法中设置过滤条件</p>
+FilterIterator类，可以对元素进行过滤，在accept()方法中设置过滤条件
 
-<p>SimpleXMLIterator类，遍历xml文件</p>
+SimpleXMLIterator类，遍历xml文件
 
-<p>CachingIterator类，这个类有hasNext()方法，用来判断是否还有下一个元素</p>
+CachingIterator类，这个类有hasNext()方法，用来判断是否还有下一个元素
 
-<p>LimitIterator类，限定返回结果集的数量和位置</p>
+LimitIterator类，限定返回结果集的数量和位置
 
-<p>SplFileObject类，对文本文件进行遍历</p>
+SplFileObject类，对文本文件进行遍历
+</code></pre>
 
 <p>【完】</p>
 ]]></content>
